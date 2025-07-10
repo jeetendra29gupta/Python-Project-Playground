@@ -1,0 +1,22 @@
+
+    <FlightSearchResponse>
+      <Flights>
+        <Flight>
+          <FlightNumber>WN123</FlightNumber>
+          <Origin>DAL</Origin>
+          <Destination>HOU</Destination>
+          <DepartureTime>2025-07-20T08:00:00</DepartureTime>
+          <ArrivalTime>2025-07-20T09:30:00</ArrivalTime>
+          <Fare>150.00</Fare>
+        </Flight>
+        <Flight>
+          <FlightNumber>WN456</FlightNumber>
+          <Origin>DAL</Origin>
+          <Destination>HOU</Destination>
+          <DepartureTime>2025-07-20T10:00:00</DepartureTime>
+          <ArrivalTime>2025-07-20T11:30:00</ArrivalTime>
+          <Fare>170.00</Fare>
+        </Flight>
+      </Flights>
+    </FlightSearchResponse>
+    

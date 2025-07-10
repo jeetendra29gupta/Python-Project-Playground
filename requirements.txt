@@ -7,3 +7,7 @@ fastapi
 uvicorn
 pydantic
 sqlalchemy
+
+# Data Exchange Activity Example
+dicttoxml
+xmltodict
