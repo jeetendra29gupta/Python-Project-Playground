@@ -7,7 +7,7 @@ A simple RESTful Todo API built with **FastAPI** and **SQLite** using **SQLAlche
 
 ## 🚀 Features
 
-- ✅ Create, Read, Update, Delete (CRUD) todo items
+- ✅ Create(Post), Read(Get), Update(Put & Patch), Delete(Delete) (CRUD) todo items
 - 📋 Mark tasks as done or pending
 - 🔁 Reset all todos in the database
 - 🧪 Testable Python client with real-time interaction
@@ -38,7 +38,7 @@ A simple RESTful Todo API built with **FastAPI** and **SQLite** using **SQLAlche
 ### 📦 Install Dependencies
 
 ```bash
-pip install fastapi uvicorn sqlalchemy requests
+  pip install fastapi uvicorn sqlalchemy requests
 ```
 
 ---
@@ -48,7 +48,7 @@ pip install fastapi uvicorn sqlalchemy requests
 ### 1. Start the API Server
 
 ```bash
-uvicorn main:app --reload --port 8181
+  uvicorn main:app --reload --port 8181
 ```
 
 * This will run the server at: [http://localhost:8181](http://localhost:8181)
@@ -79,16 +79,16 @@ This will:
 
 ## 📬 API Endpoints Summary
 
-| Method | Endpoint          | Description                   |
-| ------ | ----------------- | ----------------------------- |
-| GET    | `/`               | Welcome message               |
-| POST   | `/todos?task=...` | Create a new todo             |
-| GET    | `/todos`          | List all todos                |
-| GET    | `/todos/{tid}`    | Get a todo by ID              |
-| PUT    | `/todos/{tid}`    | Update a todo's task          |
-| PATCH  | `/todos/{tid}`    | Update a todo's status (done) |
-| DELETE | `/todos/{tid}`    | Delete a specific todo        |
-| DELETE | `/reset/todos`    | Delete all todos (reset DB)   |
+| Method | Endpoint       | Description                   |
+| ------ |----------------| ----------------------------- |
+| GET    | `/`            | Welcome message               |
+| POST   | `/todos`       | Create a new todo             |
+| GET    | `/todos`       | List all todos                |
+| GET    | `/todos/{tid}` | Get a todo by ID              |
+| PUT    | `/todos/{tid}` | Update a todo's task          |
+| PATCH  | `/todos/{tid}` | Update a todo's status (done) |
+| DELETE | `/todos/{tid}` | Delete a specific todo        |
+| DELETE | `/reset/todos` | Delete all todos (reset DB)   |
 
 ---
 

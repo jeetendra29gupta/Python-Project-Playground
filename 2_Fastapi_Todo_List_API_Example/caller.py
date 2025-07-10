@@ -33,7 +33,7 @@ def create_todo(task: str):
     Returns:
         dict: Created todo item
     """
-    response = requests.post(f"{BASE_URL}/todos", params={"task": task})
+    response = requests.post(f"{BASE_URL}/todos", json={"task": task})
     response.raise_for_status()
     return response.json()
 
@@ -76,7 +76,7 @@ def update_todo(tid: int, task: str):
     Returns:
         dict: Updated todo item
     """
-    response = requests.put(f"{BASE_URL}/todos/{tid}", params={"task": task})
+    response = requests.put(f"{BASE_URL}/todos/{tid}", json={"task": task})
     response.raise_for_status()
     return response.json()
 
@@ -92,7 +92,7 @@ def patch_todo_status(tid: int, is_done: bool):
     Returns:
         dict: Updated todo item
     """
-    response = requests.patch(f"{BASE_URL}/todos/{tid}", params={"is_done": str(is_done).lower()})
+    response = requests.patch(f"{BASE_URL}/todos/{tid}", json={"is_done": is_done})
     response.raise_for_status()
     return response.json()
 
@@ -144,18 +144,18 @@ def main():
     for todo in get_all_todos():
         print(todo)
 
-    print("\n=== 🔍 Getting Todo by ID ===")
+    print(f"\n=== 🔍 Getting Todo by ID: {first_todo_id}===")
     print(get_todo_by_id(first_todo_id))
 
-    print("\n=== ✏️ Updating Todo (PUT) ===")
+    print(f"\n=== ✏️ Updating Todo (PUT), ID: {first_todo_id} ===")
     updated = update_todo(first_todo_id, "Buy groceries and cook dinner")
     print(updated)
 
-    print("\n=== ✅ Patching Todo Status (PATCH) ===")
+    print(f"\n=== ✅ Patching Todo Status (PATCH), ID: {first_todo_id + 1} ===")
     patched = patch_todo_status(first_todo_id + 1, True)
     print(patched)
 
-    print("\n=== ❌ Deleting a Todo ===")
+    print(f"\n=== ❌ Deleting a Todo, ID: {first_todo_id + 2} ===")
     deleted = delete_todo(first_todo_id + 2)
     print(deleted)
 

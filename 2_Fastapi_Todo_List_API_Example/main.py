@@ -30,7 +30,7 @@ class TodoDB(Base):
     """
     __tablename__ = "todos"
 
-    tid = Column(Integer, primary_key=True, index=True)
+    tid = Column(Integer, primary_key=True, index=True, autoincrement=True)
     task = Column(String, nullable=False)
     status = Column(Boolean, default=False)
 
@@ -53,6 +53,30 @@ class Todo(BaseModel):
 
     class Config:
         from_attributes = True  # Enable ORM compatibility
+
+
+class TodoCreate(BaseModel):
+    """
+    Pydantic model for creating a new Todo item.
+    Used to validate input data for creating todos.
+    """
+    task: str
+
+
+class TodoUpdate(BaseModel):
+    """
+    Pydantic model for updating an existing Todo item.
+    Used to validate input data for updating todos.
+    """
+    task: str
+
+
+class TodoModify(BaseModel):
+    """
+    Pydantic model for modifying an existing Todo item.
+    Used to validate input data for modifying todos.
+    """
+    is_done: bool
 
 
 # ==========================================
@@ -111,7 +135,7 @@ def root():
 
 
 @app.post("/todos", tags=["Todos"])
-def create_todo(task: str, db: Session = Depends(get_db)):
+def create_todo(task: TodoCreate, db: Session = Depends(get_db)):
     """
     Create a new todo item.
 
@@ -122,7 +146,7 @@ def create_todo(task: str, db: Session = Depends(get_db)):
     Returns:
         TodoDB: Created todo object
     """
-    new_todo = TodoDB(task=task)
+    new_todo = TodoDB(task=task.task)
     db.add(new_todo)
     db.commit()
     db.refresh(new_todo)
@@ -159,7 +183,7 @@ def get_todo(tid: int, db: Session = Depends(get_db)):
 
 
 @app.put("/todos/{tid}", tags=["Todos"])
-def update_todo(tid: int, task: str, db: Session = Depends(get_db)):
+def update_todo(tid: int, task: TodoUpdate, db: Session = Depends(get_db)):
     """
     Update task text of an existing todo. Resets status to False.
 
@@ -172,7 +196,8 @@ def update_todo(tid: int, task: str, db: Session = Depends(get_db)):
         TodoDB: Updated todo object
     """
     todo = get_todo_or_404(tid, db)
-    todo.task = task
+    print(task.task)
+    todo.task = task.task
     todo.status = False
     db.commit()
     db.refresh(todo)
@@ -180,7 +205,7 @@ def update_todo(tid: int, task: str, db: Session = Depends(get_db)):
 
 
 @app.patch("/todos/{tid}", tags=["Todos"])
-def patch_status(tid: int, is_done: bool, db: Session = Depends(get_db)):
+def patch_status(tid: int, is_done: TodoModify, db: Session = Depends(get_db)):
     """
     Update only the status of a todo (done or pending).
 
@@ -193,7 +218,7 @@ def patch_status(tid: int, is_done: bool, db: Session = Depends(get_db)):
         TodoDB: Updated todo object
     """
     todo = get_todo_or_404(tid, db)
-    todo.status = is_done
+    todo.status = is_done.is_done
     db.commit()
     db.refresh(todo)
     return todo

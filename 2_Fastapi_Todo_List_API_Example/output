@@ -1,0 +1,34 @@
+=== 🔄 Resetting All Todos ===
+{'message': 'All todos have been deleted'}
+
+=== 🆕 Creating Multiple Todos ===
+{'status': False, 'tid': 1, 'task': 'Buy groceries'}
+{'status': False, 'tid': 2, 'task': 'Walk the dog'}
+{'status': False, 'tid': 3, 'task': 'Write FastAPI code'}
+{'status': False, 'tid': 4, 'task': 'Read a book'}
+{'status': False, 'tid': 5, 'task': 'Exercise for 30 minutes'}
+
+=== 📋 Getting All Todos ===
+{'status': False, 'tid': 1, 'task': 'Buy groceries'}
+{'status': False, 'tid': 2, 'task': 'Walk the dog'}
+{'status': False, 'tid': 3, 'task': 'Write FastAPI code'}
+{'status': False, 'tid': 4, 'task': 'Read a book'}
+{'status': False, 'tid': 5, 'task': 'Exercise for 30 minutes'}
+
+=== 🔍 Getting Todo by ID: 1===
+{'status': False, 'tid': 1, 'task': 'Buy groceries'}
+
+=== ✏️ Updating Todo (PUT), ID: 1 ===
+{'status': False, 'tid': 1, 'task': 'Buy groceries and cook dinner'}
+
+=== ✅ Patching Todo Status (PATCH), ID: 2 ===
+{'status': True, 'tid': 2, 'task': 'Walk the dog'}
+
+=== ❌ Deleting a Todo, ID: 3 ===
+{"message":"Todo deleted successfully"}
+
+=== 📋 Todos After Deletion ===
+{'status': False, 'tid': 1, 'task': 'Buy groceries and cook dinner'}
+{'status': True, 'tid': 2, 'task': 'Walk the dog'}
+{'status': False, 'tid': 4, 'task': 'Read a book'}
+{'status': False, 'tid': 5, 'task': 'Exercise for 30 minutes'}
