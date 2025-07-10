@@ -5,3 +5,5 @@
 > **[📁 Data Exchange Activity Example](3_Data_Exchange_Activity_Example/)**
 
 > **[📁 SOAP WSDL Client Example](4_SOAP_WSDL_Client_Example/)**
+
+> **[📁 MongoDB Tutorial Class](5_MongoDB_Tutorial_Class/)**

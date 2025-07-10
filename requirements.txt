@@ -15,3 +15,6 @@ xmltodict
 # SOAP WSDL Client Example
 zeep
 lxml
+
+# MongoDB Tutorial Class
+pymongo
