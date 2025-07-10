@@ -4,25 +4,29 @@ from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String, Boolean, create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base, Session
 
-# ---- Database Setup ----
-DATABASE_URL = "sqlite:///./todo.db"  # SQLite DB file path
+# ==========================================
+# 🔧 Step 1: Database Setup
+# ==========================================
 
-# Create SQLAlchemy engine and session maker
+# SQLite DB connection string
+DATABASE_URL = "sqlite:///./todo.db"
+
+# SQLAlchemy engine and session maker
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
 
-# Base class for declarative models
+# Base class for ORM models
 Base = declarative_base()
 
 
-# ---- SQLAlchemy Model ----
+# ==========================================
+# 🗃️ Step 2: SQLAlchemy Model
+# ==========================================
+
 class TodoDB(Base):
     """
     SQLAlchemy ORM model for a Todo item.
-    Fields:
-        - tid: primary key integer ID
-        - task: string description of the todo task
-        - status: boolean indicating completion (False = pending, True = done)
+    Represents a row in the 'todos' table.
     """
     __tablename__ = "todos"
 
@@ -31,33 +35,40 @@ class TodoDB(Base):
     status = Column(Boolean, default=False)
 
 
-# Create database tables
+# Create the database tables if they don't exist
 Base.metadata.create_all(bind=engine)
 
 
-# ---- Pydantic Output Model ----
+# ==========================================
+# 🧾 Step 3: Pydantic Response Model
+# ==========================================
+
 class Todo(BaseModel):
     """
-    Pydantic model for serializing TodoDB instances in API responses.
+    Pydantic model used to serialize responses for TodoDB objects.
     """
     tid: int
     task: str
     status: bool
 
     class Config:
-        # Enable ORM mode to allow serialization from SQLAlchemy objects
-        from_attributes = True
+        from_attributes = True  # Enable ORM compatibility
 
 
-# ---- FastAPI App ----
+# ==========================================
+# 🚀 Step 4: FastAPI App Initialization
+# ==========================================
+
 app = FastAPI(title="Todo API (Simple Input)")
 
 
-# ---- Dependency ----
+# ==========================================
+# 🔗 Step 5: Dependency for DB Session
+# ==========================================
+
 def get_db():
     """
-    FastAPI dependency that provides a SQLAlchemy session.
-    Ensures session is closed after request.
+    FastAPI dependency that provides a database session for each request.
     """
     db = SessionLocal()
     try:
@@ -66,18 +77,20 @@ def get_db():
         db.close()
 
 
-# ---- Helper Function ----
+# ==========================================
+# ⚙️ Step 6: Helper Function
+# ==========================================
+
 def get_todo_or_404(tid: int, db: Session) -> TodoDB:
     """
-    Retrieve a TodoDB item by id from the database.
-    Raises HTTP 404 if not found.
+    Helper to fetch a Todo by ID or raise 404 if not found.
 
     Args:
         tid (int): Todo ID
-        db (Session): SQLAlchemy database session
+        db (Session): SQLAlchemy session
 
     Returns:
-        TodoDB: ORM Todo object
+        TodoDB: The found Todo object
     """
     todo = db.query(TodoDB).filter(TodoDB.tid == tid).first()
     if not todo:
@@ -85,11 +98,14 @@ def get_todo_or_404(tid: int, db: Session) -> TodoDB:
     return todo
 
 
-# ---- Routes ----
+# ==========================================
+# 📡 Step 7: API Routes
+# ==========================================
+
 @app.get("/", tags=["Root"])
 def root():
     """
-    Root endpoint welcoming users to the API.
+    Root endpoint to verify API is running.
     """
     return {"message": "Welcome to the simple Todo API"}
 
@@ -97,16 +113,16 @@ def root():
 @app.post("/todos", tags=["Todos"])
 def create_todo(task: str, db: Session = Depends(get_db)):
     """
-    Create a new todo item with the given task description.
+    Create a new todo item.
 
     Args:
-        task (str): Task description (from query parameter)
-        db (Session): Database session (injected)
+        task (str): Task description
+        db (Session): Database session
 
     Returns:
-        TodoDB: The created todo item
+        TodoDB: Created todo object
     """
-    new_todo = TodoDB(task=task, status=False)
+    new_todo = TodoDB(task=task)
     db.add(new_todo)
     db.commit()
     db.refresh(new_todo)
@@ -116,13 +132,13 @@ def create_todo(task: str, db: Session = Depends(get_db)):
 @app.get("/todos", tags=["Todos"])
 def get_all_todos(db: Session = Depends(get_db)):
     """
-    Retrieve all todo items from the database.
+    Retrieve all todo items.
 
     Args:
-        db (Session): Database session (injected)
+        db (Session): Database session
 
     Returns:
-        List[TodoDB]: List of all todos
+        List[TodoDB]: All todos
     """
     return db.query(TodoDB).all()
 
@@ -130,14 +146,14 @@ def get_all_todos(db: Session = Depends(get_db)):
 @app.get("/todos/{tid}", tags=["Todos"])
 def get_todo(tid: int, db: Session = Depends(get_db)):
     """
-    Retrieve a specific todo item by id.
+    Retrieve a specific todo by ID.
 
     Args:
-        tid (int): Todo ID from path
-        db (Session): Database session (injected)
+        tid (int): Todo ID
+        db (Session): Database session
 
     Returns:
-        TodoDB: The requested todo item
+        TodoDB: Retrieved todo object
     """
     return get_todo_or_404(tid, db)
 
@@ -145,16 +161,15 @@ def get_todo(tid: int, db: Session = Depends(get_db)):
 @app.put("/todos/{tid}", tags=["Todos"])
 def update_todo(tid: int, task: str, db: Session = Depends(get_db)):
     """
-    Update the task description of an existing todo item.
-    Resets the status to False (pending).
+    Update task text of an existing todo. Resets status to False.
 
     Args:
         tid (int): Todo ID
-        task (str): New task description (from query parameter)
+        task (str): New task text
         db (Session): Database session
 
     Returns:
-        TodoDB: Updated todo item
+        TodoDB: Updated todo object
     """
     todo = get_todo_or_404(tid, db)
     todo.task = task
@@ -167,15 +182,15 @@ def update_todo(tid: int, task: str, db: Session = Depends(get_db)):
 @app.patch("/todos/{tid}", tags=["Todos"])
 def patch_status(tid: int, is_done: bool, db: Session = Depends(get_db)):
     """
-    Update the status (done/pending) of a todo item.
+    Update only the status of a todo (done or pending).
 
     Args:
         tid (int): Todo ID
-        is_done (bool): New status, True for done, False for pending (from query parameter)
+        is_done (bool): True if done, False if pending
         db (Session): Database session
 
     Returns:
-        TodoDB: Updated todo item
+        TodoDB: Updated todo object
     """
     todo = get_todo_or_404(tid, db)
     todo.status = is_done
@@ -187,14 +202,14 @@ def patch_status(tid: int, is_done: bool, db: Session = Depends(get_db)):
 @app.delete("/todos/{tid}", tags=["Todos"])
 def delete_todo(tid: int, db: Session = Depends(get_db)):
     """
-    Delete a todo item by ID.
+    Delete a specific todo by ID.
 
     Args:
         tid (int): Todo ID
         db (Session): Database session
 
     Returns:
-        dict: Confirmation message
+        dict: Success message
     """
     todo = get_todo_or_404(tid, db)
     db.delete(todo)
@@ -205,21 +220,22 @@ def delete_todo(tid: int, db: Session = Depends(get_db)):
 @app.delete("/reset/todos", tags=["Todos"])
 def reset_todos(db: Session = Depends(get_db)):
     """
-    Delete all todo items from the database, effectively resetting the todos table.
+    Delete all todos in the database.
 
     Args:
-        db (Session): SQLAlchemy database session (injected by FastAPI)
+        db (Session): Database session
 
     Returns:
-        dict: Confirmation message indicating all todos have been deleted
+        dict: Success message
     """
-    # Delete all rows in the todos table
     db.query(TodoDB).delete()
-    # Commit the transaction to apply changes
     db.commit()
-    # Return a success message
     return {"message": "All todos have been deleted"}
 
+
+# ==========================================
+# 🚦 Step 8: Run with Uvicorn (Dev Mode)
+# ==========================================
 
 if __name__ == '__main__':
     uvicorn.run("main:app", host="0.0.0.0", port=8181, reload=True)

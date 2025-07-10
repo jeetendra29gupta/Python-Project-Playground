@@ -1,7 +1,14 @@
 import requests
 
+# ==========================================
+# 🔗 Step 1: Base API URL
+# ==========================================
 BASE_URL = "http://localhost:8181"
 
+
+# ==========================================
+# 🔁 Step 2: API Functions
+# ==========================================
 
 def reset_todos():
     """
@@ -9,7 +16,7 @@ def reset_todos():
     effectively resetting the todo list.
 
     Returns:
-        Response JSON dict with status message.
+        dict: Response JSON with status message.
     """
     response = requests.delete(f"{BASE_URL}/reset/todos")
     response.raise_for_status()
@@ -18,13 +25,13 @@ def reset_todos():
 
 def create_todo(task: str):
     """
-    Creates a new todo task by calling the API.
+    Creates a new todo item.
 
     Args:
-        task (str): The description of the todo task.
+        task (str): Task description
 
     Returns:
-        Created todo item as a dict.
+        dict: Created todo item
     """
     response = requests.post(f"{BASE_URL}/todos", params={"task": task})
     response.raise_for_status()
@@ -33,10 +40,10 @@ def create_todo(task: str):
 
 def get_all_todos():
     """
-    Fetches all todo tasks from the API.
+    Retrieves all todos from the API.
 
     Returns:
-        List of todos as dicts.
+        list[dict]: List of todos
     """
     response = requests.get(f"{BASE_URL}/todos")
     response.raise_for_status()
@@ -45,13 +52,13 @@ def get_all_todos():
 
 def get_todo_by_id(tid: int):
     """
-    Fetches a single todo item by ID.
+    Retrieves a specific todo by ID.
 
     Args:
-        tid (int): Todo item ID.
+        tid (int): Todo ID
 
     Returns:
-        Todo item dict.
+        dict: Todo item
     """
     response = requests.get(f"{BASE_URL}/todos/{tid}")
     response.raise_for_status()
@@ -60,14 +67,14 @@ def get_todo_by_id(tid: int):
 
 def update_todo(tid: int, task: str):
     """
-    Updates a todo's task description (PUT request).
+    Updates the task description of a todo.
 
     Args:
-        tid (int): Todo item ID.
-        task (str): New task description.
+        tid (int): Todo ID
+        task (str): New task description
 
     Returns:
-        Updated todo item dict.
+        dict: Updated todo item
     """
     response = requests.put(f"{BASE_URL}/todos/{tid}", params={"task": task})
     response.raise_for_status()
@@ -76,14 +83,14 @@ def update_todo(tid: int, task: str):
 
 def patch_todo_status(tid: int, is_done: bool):
     """
-    Patches a todo's completion status.
+    Updates the status (done/pending) of a todo.
 
     Args:
-        tid (int): Todo item ID.
-        is_done (bool): True if task is done, False otherwise.
+        tid (int): Todo ID
+        is_done (bool): Completion status
 
     Returns:
-        Updated todo item dict.
+        dict: Updated todo item
     """
     response = requests.patch(f"{BASE_URL}/todos/{tid}", params={"is_done": str(is_done).lower()})
     response.raise_for_status()
@@ -92,21 +99,25 @@ def patch_todo_status(tid: int, is_done: bool):
 
 def delete_todo(tid: int):
     """
-    Deletes a todo by ID.
+    Deletes a specific todo by ID.
 
     Args:
-        tid (int): Todo item ID.
+        tid (int): Todo ID
 
     Returns:
-        Response text or confirmation message.
+        str: Confirmation message
     """
     response = requests.delete(f"{BASE_URL}/todos/{tid}")
     response.raise_for_status()
     return response.text
 
 
+# ==========================================
+# 🚀 Step 3: Demo Script
+# ==========================================
+
 def main():
-    print("=== Reset Todos ===")
+    print("=== 🔄 Resetting All Todos ===")
     reset_resp = reset_todos()
     print(reset_resp)
 
@@ -120,40 +131,42 @@ def main():
 
     created_todos = []
 
-    print("\n=== Create Multiple Todos ===")
+    print("\n=== 🆕 Creating Multiple Todos ===")
     for task in tasks:
         todo = create_todo(task)
         print(todo)
         created_todos.append(todo)
 
+    # Extract ID of the first created todo
     first_todo_id = created_todos[0]["tid"]
 
-    print("\n=== Get All Todos ===")
-    all_todos = get_all_todos()
-    for todo in all_todos:
+    print("\n=== 📋 Getting All Todos ===")
+    for todo in get_all_todos():
         print(todo)
 
-    print("\n=== Get Todo by ID ===")
-    single_todo = get_todo_by_id(first_todo_id)
-    print(single_todo)
+    print("\n=== 🔍 Getting Todo by ID ===")
+    print(get_todo_by_id(first_todo_id))
 
-    print("\n=== Update Todo (PUT) ===")
-    updated_todo = update_todo(first_todo_id, "Buy groceries and cook dinner")
-    print(updated_todo)
+    print("\n=== ✏️ Updating Todo (PUT) ===")
+    updated = update_todo(first_todo_id, "Buy groceries and cook dinner")
+    print(updated)
 
-    print("\n=== Patch Todo Status (PATCH) ===")
-    patched_todo = patch_todo_status(first_todo_id + 1, True)
-    print(patched_todo)
+    print("\n=== ✅ Patching Todo Status (PATCH) ===")
+    patched = patch_todo_status(first_todo_id + 1, True)
+    print(patched)
 
-    print("\n=== Delete Todo ===")
-    delete_msg = delete_todo(first_todo_id + 2)
-    print(delete_msg)
+    print("\n=== ❌ Deleting a Todo ===")
+    deleted = delete_todo(first_todo_id + 2)
+    print(deleted)
 
-    print("\n=== Get All Todos After Deletion ===")
-    all_todos_after = get_all_todos()
-    for todo in all_todos_after:
+    print("\n=== 📋 Todos After Deletion ===")
+    for todo in get_all_todos():
         print(todo)
 
+
+# ==========================================
+# ▶️ Entry Point
+# ==========================================
 
 if __name__ == "__main__":
     main()
