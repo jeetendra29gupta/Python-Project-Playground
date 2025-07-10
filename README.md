@@ -3,3 +3,5 @@
 > **[📁 Fastapi Todo List API Example](2_Fastapi_Todo_List_API_Example/)**
 
 > **[📁 Data Exchange Activity Example](3_Data_Exchange_Activity_Example/)**
+
+> **[📁 SOAP WSDL Client Example](4_SOAP_WSDL_Client_Example/)**

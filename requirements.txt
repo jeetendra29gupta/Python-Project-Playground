@@ -11,3 +11,7 @@ sqlalchemy
 # Data Exchange Activity Example
 dicttoxml
 xmltodict
+
+# SOAP WSDL Client Example
+zeep
+lxml
