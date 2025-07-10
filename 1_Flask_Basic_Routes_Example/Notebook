@@ -1,0 +1,35 @@
+
+1st call:
+
+client send data:
+name = "John Doe"
+age = 30
+
+Server has data:
+name = "Someone"
+age = 25
+
+after put operation:
+Server updated data:
+name = "John Doe"
+age = 30
+
+and send same data as response
+
+
+====================
+2nd call:
+client send data:
+name = "John Doe"
+age = 30
+
+Server has data:
+name = "John Doe"
+age = 30
+
+after put operation:
+Server updated data:
+name = "John Doe"
+age = 30
+
+after 2nd call, server sends same data as response
