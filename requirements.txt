@@ -2,3 +2,8 @@
 flask
 requests
 
+# Fastapi Todo List API Example
+fastapi
+uvicorn
+pydantic
+sqlalchemy
