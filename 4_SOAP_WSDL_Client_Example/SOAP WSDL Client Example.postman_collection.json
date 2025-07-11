@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "ff8ebd88-d11f-412f-8763-dc8f1acbf2c5",
+		"name": "SOAP WSDL Client Example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11600665"
+	},
+	"item": [
+		{
+			"name": "country_info_service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					},
+					{
+						"key": "SOAPAction",
+						"value": "http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso/CapitalCity",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n               xmlns:web=\"http://www.oorsprong.org/websamples.countryinfo\">\r\n  <soap:Body>\r\n    <web:CapitalCity>\r\n      <web:sCountryISOCode>IN</web:sCountryISOCode>\r\n    </web:CapitalCity>\r\n  </soap:Body>\r\n</soap:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso",
+					"protocol": "http",
+					"host": [
+						"webservices",
+						"oorsprong",
+						"org"
+					],
+					"path": [
+						"websamples.countryinfo",
+						"CountryInfoService.wso"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "free_calculator",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					},
+					{
+						"key": "SOAPAction",
+						"value": "http://tempuri.org/Add",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap-env:Envelope xmlns:soap-env=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap-env:Body>\r\n    <ns0:Add xmlns:ns0=\"http://tempuri.org/\">\r\n      <ns0:intA>10</ns0:intA>\r\n      <ns0:intB>20</ns0:intB>\r\n    </ns0:Add>\r\n  </soap-env:Body>\r\n</soap-env:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://www.dneonline.com/calculator.asmx",
+					"protocol": "http",
+					"host": [
+						"www",
+						"dneonline",
+						"com"
+					],
+					"path": [
+						"calculator.asmx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "temperature_converter_F2C",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					},
+					{
+						"key": "SOAPAction",
+						"value": "https://www.w3schools.com/xml/FahrenheitToCelsius",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap-env:Envelope xmlns:soap-env=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap-env:Body>\r\n    <ns0:FahrenheitToCelsius xmlns:ns0=\"https://www.w3schools.com/xml/\">\r\n      <ns0:Fahrenheit>68</ns0:Fahrenheit>\r\n    </ns0:FahrenheitToCelsius>\r\n  </soap-env:Body>\r\n</soap-env:Envelope>\r\n",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.w3schools.com/xml/tempconvert.asmx",
+					"protocol": "https",
+					"host": [
+						"www",
+						"w3schools",
+						"com"
+					],
+					"path": [
+						"xml",
+						"tempconvert.asmx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "temperature_converter_C2F",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/xml; charset=utf-8",
+						"type": "text"
+					},
+					{
+						"key": "SOAPAction",
+						"value": "https://www.w3schools.com/xml/CelsiusToFahrenheit",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap-env:Envelope xmlns:soap-env=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n  <soap-env:Body>\r\n    <ns0:CelsiusToFahrenheit xmlns:ns0=\"https://www.w3schools.com/xml/\">\r\n      <ns0:Celsius>20</ns0:Celsius>\r\n    </ns0:CelsiusToFahrenheit>\r\n  </soap-env:Body>\r\n</soap-env:Envelope>",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://www.w3schools.com/xml/tempconvert.asmx",
+					"protocol": "https",
+					"host": [
+						"www",
+						"w3schools",
+						"com"
+					],
+					"path": [
+						"xml",
+						"tempconvert.asmx"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

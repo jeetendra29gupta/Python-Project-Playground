@@ -344,7 +344,7 @@ if __name__ == '__main__':
     # clear_reset(database_name="blog", collection_name="posts")
 
     # Run connection + sanity check first
-    sanity_check(database_name="blog", collection_name="posts")
+    # sanity_check(database_name="blog", collection_name="posts")
 
     # Then perform insert, update, delete
-    # main(database_name="blog", collection_name="posts")
+    main(database_name="blog", collection_name="posts")
