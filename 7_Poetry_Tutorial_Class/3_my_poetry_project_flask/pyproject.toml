@@ -1,0 +1,27 @@
+[project]
+name = "my-poetry-project-flask"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "Your Name", email = "you@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flask (>=3.1.1,<4.0.0)"
+]
+
+[pytest]
+pythonpath = "src"
+
+[tool.poetry]
+packages = [{ include = "my_poetry_project_flask", from = "src" }]
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.4.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+

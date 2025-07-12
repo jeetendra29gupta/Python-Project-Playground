@@ -9,3 +9,5 @@
 > **[📁 MongoDB Tutorial Class](5_MongoDB_Tutorial_Class/)**
 
 > **[📁 Docker Tutorial Class](6_Docker_Tutorial_Class/)**
+
+> **[📁 Poetry Tutorial Class](7_Poetry_Tutorial_Class/)**
