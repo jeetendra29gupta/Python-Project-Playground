@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "6145e9a8-b71d-4017-9875-6fe5b747de25",
+		"name": "Test Any AWS Lambda Function",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11600665"
+	},
+	"item": [
+		{
+			"name": "My First API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://kqqh4km432.execute-api.eu-north-1.amazonaws.com/testing_env/api/v1/root",
+					"protocol": "https",
+					"host": [
+						"kqqh4km432",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"testing_env",
+						"api",
+						"v1",
+						"root"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My First API",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"key1\": \"value1\",\r\n  \"key2\": \"value2\",\r\n  \"key3\": \"value3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://kqqh4km432.execute-api.eu-north-1.amazonaws.com/testing_env/api/v1/index",
+					"protocol": "https",
+					"host": [
+						"kqqh4km432",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"testing_env",
+						"api",
+						"v1",
+						"index"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My First API",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://kqqh4km432.execute-api.eu-north-1.amazonaws.com/testing_env/api/v1/delete",
+					"protocol": "https",
+					"host": [
+						"kqqh4km432",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"testing_env",
+						"api",
+						"v1",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

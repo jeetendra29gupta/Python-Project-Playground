@@ -1,0 +1,33 @@
+How to get your Access Key ID and Secret Access Key:
+⦁	Login to the AWS Console: https://console.aws.amazon.com/
+⦁	On the top right, click your username, then choose "Security credentials".
+⦁	Scroll to the section called "Access keys".
+⦁	Click "Create access key" and Select "Command Line Interface (CLI)"
+You'll see: "Access Key ID" & "Secret Access Key", Copy and store these securely
+
+
+How to download and install AWS CLI:
+⦁	Download the AWS CLI installer: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -Lo "aws-cli.zip"
+⦁	Unzip the installer: unzip aws-cli.zip -d aws-cli
+⦁	Install AWS CLI: sudo ./aws-cli/aws/install
+⦁	Verify installation: aws --version
+
+
+How to download and install AWS SAM:
+⦁	Install dependencies: sudo apt install -y curl unzip zip python3 python3-pip docker.io
+⦁	Download the AWS SAM installer: curl -Lo aws-sam.zip https://github.com/aws/aws-sam-cli/releases/download/v1.142.1/aws-sam-cli-linux-x86_64.zip
+⦁	Unzip the installer: unzip aws-sam.zip -d aws-sam
+⦁	Install the package: sudo ./aws-sam/install
+⦁	Verify installation: sam --version
+
+
+How to configure AWS CLI with your IAM credentials:
+⦁	Verify the aws cli is installed: aws --version
+⦁	Configure AWS CLI with IAM: aws configure
+⦁	It will prompt for:
+⦁	AWS Access Key ID: 🔑 (from IAM user)
+⦁	AWS Secret Access Key: 🔒 (from IAM user)
+⦁	Default region name: e.g., us-east-1
+⦁	Default output format: json (or yaml, text, etc.)
+⦁	Verify your Configuration: aws configure list
+⦁	Test Access (STS = Security Token Service): aws sts get-caller-identity

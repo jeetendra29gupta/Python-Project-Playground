@@ -225,6 +225,34 @@ exit
 
 ---
 
+## Start Local DynamoDB with Docker
+```bash
+sudo docker run -d \
+  --name dynamodb-local \
+  -p 8000:8000 \
+  -v /home/jeetendra/Container/DynamoDB:/home/dynamodblocal/data \
+  -e ROOT_USERNAME=myrootuser \
+  -e ROOT_PASSWORD=myrootpass \
+  amazon/dynamodb-local \
+  -jar DynamoDBLocal.jar -sharedDb -dbPath /home/dynamodblocal/data
+```
+
+## Test If It's Working
+```bash
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
+
+## Create table
+```bash
+aws dynamodb create-table \
+  --table-name TestTable \
+  --attribute-definitions AttributeName=Id,AttributeType=S \
+  --key-schema AttributeName=Id,KeyType=HASH \
+  --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+  --endpoint-url http://localhost:8000
+```
+---
+
 ## Summary
 
 * Manage Docker service lifecycle.
