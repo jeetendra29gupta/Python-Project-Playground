@@ -13,3 +13,5 @@
 > **[📁 Poetry Tutorial Class](7_Poetry_Tutorial_Class/)**
 
 > **[📁 AWS Tutorial Class](8_AWS_Tutorial_Class/)**
+
+> **[📁 Terraform Tutorial Class](9_Terraform_Tutorial_Class/)**
