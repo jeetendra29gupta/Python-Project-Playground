@@ -1,0 +1,7 @@
+boto3
+botocore
+fastapi
+mangum
+
+pytest
+black

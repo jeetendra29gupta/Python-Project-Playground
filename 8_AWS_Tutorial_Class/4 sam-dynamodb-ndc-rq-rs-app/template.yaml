@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  NDCLambda:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: main.handler
+      Runtime: python3.11
+      Timeout: 10
+      Events:
+        GetEvent:
+          Type: Api
+          Properties:
+            Path: /items
+            Method: GET
+        PostEvent:
+          Type: Api
+          Properties:
+            Path: /items
+            Method: POST
+        GEtHome:
+          Type: Api
+          Properties:
+            Path: /index
+            Method: GET
+      Environment:
+        Variables:
+          TABLE_NAME: MyTable
